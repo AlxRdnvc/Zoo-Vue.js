@@ -12,9 +12,9 @@
             <label for="birth">Birth</label>
             <input v-model="newAnimal.birth" type="text" placeholder="birth"><br>
 
-            <label for="sectors">Select Sector</label>
             <select v-model="newAnimal.sector">
-                <option v-for="(sector, key) in sectors" :key="key" v-bind:value="sector.name">{{ sector.name }}</option>
+                <option value="" hidden>Select your sector</option>
+                <option v-for="(sector, key) in sectors" :key="key" v-bind:value="sector">{{ sector.name }}</option>
             </select><br>
 
             <button @click="addNewAnimal" type="submit">Add Animal</button>
@@ -35,7 +35,7 @@
                     <td>{{ animal.name }}</td>
                     <td v-if="!animal.birth">unknown</td>
                     <td v-else>{{ animal.birth}}</td>
-                    <td>{{ animal.sector }}</td>
+                    <td>{{ animal.sector.name }}</td>
                     <td><button @click="moveToTop(animal)">Move to top</button></td>
                     <td><button @click="deleteAnimal(animal)">Remove Animal</button></td>
                 </tr>
@@ -60,11 +60,11 @@ export default {
             newAnimal: {},
             sectors: sectors,
             animals: [
-              {species:"monkey", name: "Srecko", birth: "10.10.2016"},
-              {species:"dog", name: "Avram", birth: "09.10.2016"},
-              {species:"cat", name: "Zora", birth: ""},
-              {species:"bear", name: "Vidoje", birth: "21.12.1985"},
-              {species:"fish", name: "Micko", birth: "11.04.2018"},
+              {species:"monkey", name: "Srecko", birth: "10.10.2016", sector: sectors[0]},
+              {species:"dog", name: "Avram", birth: "09.10.2016", sector: sectors[2]},
+              {species:"cat", name: "Zora", birth: "", sector: sectors[1]},
+              {species:"bear", name: "Vidoje", birth: "21.12.1985", sector: sectors[2]},
+              {species:"fish", name: "Micko", birth: "11.04.2018", sector: sectors[3]},
             ]
          };
     },
