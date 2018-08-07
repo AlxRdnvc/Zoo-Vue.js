@@ -6,6 +6,7 @@
                 <th>Kind</th>
                 <th>Name</th>
                 <th>Birth</th>
+                <th></th>
             </thead>
             <tbody>
                 <tr v-for="(animal, key) in animals" :key="key">
@@ -13,6 +14,7 @@
                     <td>{{ animal.name }}</td>
                     <td v-if="!animal.birth">unknown</td>
                     <td v-else>{{ animal.birth}}</td>
+                    <td><button @click="deleteAnimal(zivotinja)">Remove Animal</button></td>
                 </tr>
             </tbody>
         </table>
@@ -32,6 +34,12 @@ export default {
               {kind:"fish", name: "Micko", birth: "11.04.2018"},
           ]
       };
+  },
+  methods: {
+      deleteAnimal(zivotinja){
+          let indexOfAnimalToDelete = this.animals.indexOf(zivotinja);
+          this.animals.splice(indexOfAnimalToDelete, 1);
+      }
   }
 }
 </script>
