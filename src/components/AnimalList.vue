@@ -1,6 +1,20 @@
 <template>
     <div>
         <h1>Animal List</h1>
+
+        <form @submit.prevent>
+            <label for="kind">Kind</label>
+            <input v-model="newAnimal.kind" type="text" placeholder="kind"><br>
+
+            <label for="name">Name</label>
+            <input v-model="newAnimal.name" type="text" placeholder="name"><br>
+
+            <label for="birth">Birth</label>
+            <input v-model="newAnimal.birth" type="text" placeholder="birth"><br>
+
+            <button @click="addNewAnimal" type="submit">Add Animal</button>
+        </form>
+
         <table>
             <thead>
                 <th>Kind</th>
@@ -28,6 +42,12 @@ export default {
   name: 'AnimalList',
   data() {
       return {
+          newAnimal: {
+              kind:'',
+              name:'',
+              birth:''
+          },
+
           animals: [
               {kind:"monkey", name: "Srecko", birth: "10.10.2016"},
               {kind:"dog", name: "Avram", birth: "09.10.2016"},
@@ -44,10 +64,16 @@ export default {
           console.log(indexOfAnimalToDelete);
           this.animals.splice(indexOfAnimalToDelete, 1);
       },
+
       moveToTop(animal){
           let indexOfAnimalToMoveToTop = this.animals.indexOf(animal);
           this.animals.splice(indexOfAnimalToMoveToTop, 1);
           this.animals.unshift(animal);
+      },
+
+      addNewAnimal(){
+          this.animals.push(this.newAnimal);
+          this.newAnimal = {};
       }
   }
 }
