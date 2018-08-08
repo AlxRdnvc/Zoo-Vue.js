@@ -12,13 +12,13 @@
             <label for="birth">Birth</label>
             <input v-model="newAnimal.birth" type="text" placeholder="birth"><br>
 
-            <select v-model="newAnimal.sector">
+            <select required v-model="newAnimal.sector">
                 <option value="" hidden>Select your sector</option>
                 <option v-for="(sector, key) in sectors" :key="key" v-bind:value="sector">{{ sector.name }}</option>
             </select><br>
 
             <button @click="addNewAnimal" type="submit">Add Animal</button>
-        </form>
+        </form><hr><br>
 
         <table>
             <thead>
@@ -38,6 +38,19 @@
                     <td>{{ animal.sector.name }}</td>
                     <td><button @click="moveToTop(animal)">Move to top</button></td>
                     <td><button @click="deleteAnimal(animal)">Remove Animal</button></td>
+                </tr>
+            </tbody>
+        </table><hr><br>
+
+        <table>
+            <thead>
+                <th>Sectors</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr v-for="(sector, key) in sectors" :key="key">
+                    <td>{{ sector.name }}</td>
+                    <td><button @click="showAnimals(sector)">Show Animals</button></td>
                 </tr>
             </tbody>
         </table>
@@ -85,9 +98,26 @@ export default {
       addNewAnimal(){
           this.animals.push(this.newAnimal);
           this.newAnimal = {};
+      },
+
+      showAnimals(sector){
+        let sectorsList = [];
+        this.animals.forEach(function(animal){
+            if(sector == animal.sector){
+                sectorsList.push(animal.species);
+            }
+        })
+
+        alert("Species we have in this sector are: "+sectorsList);
       }
   }
 }
 </script>
+<style>
+    table, tr {
+        border: 1px solid #333;
+    }
+</style>
+
 
 
