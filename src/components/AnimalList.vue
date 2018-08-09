@@ -28,9 +28,10 @@
                 <th>Sector</th>
                 <th></th>
                 <th></th>
+                <th></th>
             </thead>
             <tbody>
-                <tr v-bind:class="{backgroundColor: isActive(animal)}" v-for="(animal, key) in animals" :key="key">
+                <tr v-for="(animal, key) in animals" :key="key" v-bind:class="{backgroundColor: animal.pozadina === true}" >
                     <td>{{ animal.species }}</td>
                     <td>{{ animal.name }}</td>
                     <td v-if="!animal.birth">unknown</td>
@@ -38,6 +39,7 @@
                     <td>{{ animal.sector.name }}</td>
                     <td><button @click="moveToTop(animal)">Move to top</button></td>
                     <td><button @click="deleteAnimal(animal)">Remove Animal</button></td>
+                    <td><button @click="toggleBackground(animal)">Toggle background</button></td>
                 </tr>
             </tbody>
         </table><hr><br>
@@ -74,8 +76,8 @@ export default {
             sectors: sectors,
             animals: [
               {species:"monkey", name: "Srecko", birth: "10.10.2016", sector: sectors[0]},
-              {species:"dog", name: "Avram", birth: "09.10.2016", sector: sectors[2], background: true},
-              {species:"cat", name: "Zora", birth: "", sector: sectors[1], background: true},
+              {species:"dog", name: "Avram", birth: "09.10.2016", sector: sectors[2], pozadina: true},
+              {species:"cat", name: "Zora", birth: "", sector: sectors[1], pozadina: true},
               {species:"bear", name: "Vidoje", birth: "21.12.1985", sector: sectors[2]},
               {species:"fish", name: "Micko", birth: "11.04.2018", sector: sectors[3]},
             ]
@@ -112,7 +114,11 @@ export default {
       },
 
       isActive(animal){
-          return animal.background;
+          return animal.pozadina;
+      },
+
+      toggleBackground(animal){
+          animal.pozadina = !animal.pozadina;
       }
   }
 }
